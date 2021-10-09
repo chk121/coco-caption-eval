@@ -4,19 +4,21 @@ Microsoft COCO Caption Evaluation
 Evaluation codes for MS COCO caption generation.
 
 ## Requirements ##
-- java 1.8.0
-- python 2.7
+- python3 (or you can set up the environment same as [Image-Captioning-Project](https://github.com/chk121/Image-Captioning-Project))
 
 ## Files ##
 ./
-- cocoEvalCapDemo.py (demo script)
+- mycocoCapEvalNotebook.ipynb
+- cocoEvalCapDemo.ipynb (demo script for python2)
+
 
 ./annotation
 - captions_val2014.json (MS COCO 2014 caption validation set)
 - Visit MS COCO [download](http://mscoco.org/dataset/#download) page for more details.
 
 ./results
-- captions_val2014_fakecap_results.json (an example of fake results for running demo)
+- val2014_res.json (result generated from [3_Inference.ipynb](https://github.com/chk121/Image-Captioning-Project/blob/master/3_Inference.ipynb))
+- captions_val2014_fakecap_results.json (an example of fake results for running cocoEvalCapDemo.ipynb)
 - Visit MS COCO [format](http://mscoco.org/dataset/#format) page for more details.
 
 ./pycocoevalcap: The folder where all evaluation codes are stored.
