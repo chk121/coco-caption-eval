@@ -1,1 +1,3 @@
 *.pyc
+pycocoevalcap/spice/lib/
+.ipynb_checkpoints/

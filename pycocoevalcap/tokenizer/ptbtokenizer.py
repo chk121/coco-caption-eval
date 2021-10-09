@@ -19,7 +19,10 @@ STANFORD_CORENLP_3_4_1_JAR = 'stanford-corenlp-3.4.1.jar'
 
 # punctuations to be removed from the sentences
 PUNCTUATIONS = ["''", "'", "``", "`", "-LRB-", "-RRB-", "-LCB-", "-RCB-", \
-        ".", "?", "!", ",", ":", "-", "--", "...", ";"] 
+        ".", "?", "!", ",", ":", "-", "--", "...", ";"]
+
+for i in range(len(PUNCTUATIONS)):
+    PUNCTUATIONS[i] = PUNCTUATIONS[i].encode(encoding="utf-8")
 
 class PTBTokenizer:
     """Python wrapper of Stanford PTBTokenizer"""
@@ -41,7 +44,7 @@ class PTBTokenizer:
         # ======================================================
         path_to_jar_dirname=os.path.dirname(os.path.abspath(__file__))
         tmp_file = tempfile.NamedTemporaryFile(delete=False, dir=path_to_jar_dirname)
-        tmp_file.write(sentences)
+        tmp_file.write(sentences.encode(encoding="utf-8"))
         tmp_file.close()
 
         # ======================================================
@@ -51,7 +54,7 @@ class PTBTokenizer:
         p_tokenizer = subprocess.Popen(cmd, cwd=path_to_jar_dirname, \
                 stdout=subprocess.PIPE)
         token_lines = p_tokenizer.communicate(input=sentences.rstrip())[0]
-        lines = token_lines.split('\n')
+        lines = token_lines.split('\n'.encode(encoding="utf-8"))
         # remove temp file
         os.remove(tmp_file.name)
 
@@ -61,7 +64,9 @@ class PTBTokenizer:
         for k, line in zip(image_id, lines):
             if not k in final_tokenized_captions_for_image:
                 final_tokenized_captions_for_image[k] = []
-            tokenized_caption = ' '.join([w for w in line.rstrip().split(' ') \
+#             print(type(line.rstrip().split(' '.encode(encoding="utf-8"))[0]))
+#             print(type(w) for w in line.rstrip().split(' ') if w not in PUNCTUATIONS)
+            tokenized_caption = ' '.join([w.decode() for w in line.rstrip().split(' '.encode(encoding="utf-8")) \
                     if w not in PUNCTUATIONS])
             final_tokenized_captions_for_image[k].append(tokenized_caption)
 
